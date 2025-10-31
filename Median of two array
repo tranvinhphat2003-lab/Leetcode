@@ -1,0 +1,47 @@
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+
+        // check empty 
+        if (nums1.empty() && nums2.empty()) return 0.0;
+
+          // merge the vector 
+          int size = nums1.size() + nums2.size() ;
+          vector<int> arr (size) ;
+          int count1 = 0 ;
+          int count2 = 0 ;
+          for ( int i = 0 ; i < size ; i++ ) { 
+                //nums1 is empty
+                if(count1 >= nums1.size()) { 
+                    arr[i] = nums2[count2] ; 
+                    count2 ++ ;
+                }
+                
+                //nums2 is empty
+                else if(count2 >= nums2.size()) { 
+                    arr[i] = nums1[count1] ; 
+                    count1 ++ ;
+                }
+
+                else if(nums1[count1] <= nums2[count2]) { 
+                    arr[i] = nums1[count1] ;
+                    count1 ++ ;
+                }
+                
+                else { 
+                    arr[i] = nums2[count2] ; 
+                    count2 ++ ;
+                }
+                  
+          }
+        // find the median
+
+        if(size % 2 == 0) {  
+
+            return (arr[size / 2] + arr[size / 2 - 1]) / 2.0 ;  
+        
+        }
+        else 
+            return arr[size / 2] ; 
+    }
+};
